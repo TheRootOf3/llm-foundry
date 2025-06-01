@@ -930,7 +930,15 @@ class SelectiveMultiHeadAttention(nn.Module):
 
         # Selective multi-head attention params.
 
-        self.trainable_heads = [0, 1]
+        self.trainable_heads = list(range(n_heads))
+
+    def set_trainable_heads(self, trainable_heads: list[int]):
+        """Sets the trainable heads for selective multi-head attention.
+
+        Args:
+            trainable_heads (list[int]): List of indices of heads to be trained.
+        """
+        self.trainable_heads = sorted(trainable_heads)
 
     def forward(
         self,
